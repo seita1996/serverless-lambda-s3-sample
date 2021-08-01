@@ -5,13 +5,24 @@ provider:
   runtime: ruby2.7
   region: ap-northeast-1
   lambdaHashingVersion: 20201221
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource:
+        - "arn:aws:s3:::json-strage-sample-bucket/*"
 functions:
-  hello:
-    handler: handler.hello
+  lambda_s3_function_name:
+    handler: handler.handler
     events:
-      - httpApi:
-          path: /hello
-          method: get
+      - s3:
+          bucket: json-strage-sample-bucket
+          events:
+            - s3:ObjectCreated:*
+          rules:
+            - prefix: uploads
+            - sufix: json
+          # existing: true
 package:
   exclude:
     - .git
@@ -20,3 +31,4 @@ package:
     - docker.env.sample
     - docker-compose.yml
     - Dockerfile.dev
+    - Readme.md

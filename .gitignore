@@ -3,3 +3,6 @@ docker.env
 ### Serverless ###
 # Ignore build directory
 .serverless
+
+### Ruby ###
+vendor/bundle
