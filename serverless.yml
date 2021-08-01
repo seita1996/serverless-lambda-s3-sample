@@ -20,8 +20,7 @@ functions:
           events:
             - s3:ObjectCreated:*
           rules:
-            - prefix: uploads
-            - sufix: json
+            - suffix: json
           # existing: true
 package:
   exclude:
